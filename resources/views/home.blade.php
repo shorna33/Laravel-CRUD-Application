@@ -38,7 +38,7 @@
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content">
+            <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5" id="exampleModalLabel">Enter Post Title and Content</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -60,16 +60,49 @@
               </form>
             </div>
             
-          </div>
+            </div>
         </div>
-      </div>
+    </div>
 
+    {{-- <div class="container mt-5">
+        @foreach ($users as $user)
+            @if ($user['id'] == $post['user_id'])
+                <p>{{ $user['name'] }}</p>
+            @endif
+        @endforeach
+    </div> --}}
 
+    <div class="m-5">
+        <h2>All Posts</h2>
+        @foreach ($posts as $post)
+            <div class="m-3 rounded-pill" style="background: white">
+                <h3 class="ms-5 pt-3 caption">{{ $post['title'] }}</h3>
+                @foreach ($users as $user)
+                    @if ($user['id'] == $post['user_id'])
+                        <p class="ms-5">Author - {{ $user['name'] }}</p>                        
+                    @endif
+                @endforeach
+                <hr style="width: 90%; margin-left: 5vh;">
+                <p class="ms-5 content">{{ $post['body'] }}</p>
+
+                <div class="ms-5 btn-toolbar pb-3">
+                    <p><a href="/edit-post/{{ $post->id }}" class="btn btn-success me-3 mt-3">Edit</a></p>
+                    <form action="/delete-post/{{ $post->id }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger mt-3">Delete</button>
+                    </form>
+                </div>
+                
+                
+            </div>
+        @endforeach
+    </div>
 
 
      <form action="/logout" method="POST">
         @csrf
-        <div class="d-flex justify-content-end me-5 pe-5">
+        <div class="d-flex justify-content-end me-5 pe-5 mb-5">
             <button class="btn btn-dark">Log Out</button>
         </div>
         

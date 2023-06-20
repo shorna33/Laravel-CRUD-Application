@@ -806,5 +806,13 @@ label.valid:after {
 }
 
 .post-btn {
-    margin-left: 15vh;
+    margin-left: 15vw;
+}
+
+.caption {
+    font-weight: 600;
+}
+
+.content {
+    color: black;
 }

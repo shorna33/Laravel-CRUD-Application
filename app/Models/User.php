@@ -42,4 +42,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /// user r post model er moddhe relationship
+    public function usersPosts() {
+        return $this->hasMany(Post::class, 'user_id');
+    }
 }
