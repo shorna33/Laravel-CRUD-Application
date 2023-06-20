@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Laravel CRUD Application</title>
+    <title>Personal Blog</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Google Fonts -->
@@ -24,13 +24,16 @@
     {{-- fonts --}}
     <link href="{{ asset('fonts/material-icon/css/material-design-iconic-font.min.css') }}" rel="stylesheet">
     {{-- css --}}
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/style.css') }}" rel="stylesheet"> --}}
+    <link href="{{ asset('css/welcome.css') }}" rel="stylesheet">
 
 </head>
 <body>
 
     @auth
-     <h1 class="welcome">Welcome to home page!</h1>
+    <div class="colour">
+        
+     <h1 class="well">Welcome {{ Auth::user()->name }}!</h1>
 
      <div class="post-btn">
         <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-plus me-2"></i>Create new post</button>
@@ -75,15 +78,17 @@
     <div class="m-5">
         <h2>All Posts</h2>
         @foreach ($posts as $post)
-            <div class="m-3 rounded-pill" style="background: white">
+            <div class="m-sm-3 m-1" style="background: white; border-radius: 40px;">
                 <h3 class="ms-5 pt-3 caption">{{ $post['title'] }}</h3>
                 @foreach ($users as $user)
                     @if ($user['id'] == $post['user_id'])
-                        <p class="ms-5">Author - {{ $user['name'] }}</p>                        
+                        <h5 class="ms-5">Author - {{ $user['name'] }}</h5>
+                        <p class="ms-5">Last updated: {{ $post['updated_at'] }}</p>
+                        
                     @endif
                 @endforeach
                 <hr style="width: 90%; margin-left: 5vh;">
-                <p class="ms-5 content">{{ $post['body'] }}</p>
+                <p class="ms-5 content text-justify text-wrap" style="width: 88%; text-align: justify;">{{ $post['body'] }}</p>
 
                 <div class="ms-5 btn-toolbar pb-3">
                     <p><a href="/edit-post/{{ $post->id }}" class="btn btn-success me-3 mt-3">Edit</a></p>
@@ -105,87 +110,21 @@
         <div class="d-flex justify-content-end me-5 pe-5 mb-5">
             <button class="btn btn-dark">Log Out</button>
         </div>
-        
      </form>
     @else 
-        <div class="main">
-
-            <!-- Register form -->
-            <section class="signup">
-                <div class="container">
-                    <div class="signup-content">
-                        <div class="signup-form">
-                            <h2 class="form-title">Register</h2>
-                            <form action="/register" method="POST" class="register-form" id="register-form">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                    <input type="text" name="name" id="name" placeholder="Your Name"/>
-                                </div>
-                                <div class="form-group">
-                                    <label for="email"><i class="zmdi zmdi-email"></i></label>
-                                    <input type="email" name="email" id="email" placeholder="Your Email"/>
-                                </div>
-                                <div class="form-group">
-                                    <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                                    <input type="password" name="password" id="pass" placeholder="Password"/>
-                                </div>
-                                <div class="form-group form-button">
-                                    <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="signup-image">
-                            <figure><img src="images/signup-image.jpg" alt="sing up image"></figure>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Log in  Form -->
-            <section class="sign-in">
-                <div class="container">
-                    <div class="signin-content">
-                        <div class="signin-image">
-                            <figure><img src="images/signin-image.jpg" alt="sing up image"></figure>
-                            <a href="#" class="signup-image-link">Create an account</a>
-                        </div>
-
-                        <div class="signin-form">
-                            <h2 class="form-title">Log In</h2>
-                            <form action="/login" method="POST" class="register-form" id="login-form">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                    <input type="text" name="your_name" id="your_name" placeholder="Your Name"/>
-                                </div>
-                                <div class="form-group">
-                                    <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
-                                    <input type="password" name="your_pass" id="your_pass" placeholder="Password"/>
-                                </div>
-                                {{-- <div class="form-group">
-                                    <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
-                                    <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
-                                </div> --}}
-                                <div class="form-group form-button">
-                                    <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
-                                </div>
-                            </form>
-                            <div class="social-login">
-                                <span class="social-label">Or login with</span>
-                                <ul class="socials">
-                                    <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
-                                    <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
-                                    <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+        <div class="image">
+            <img src="{{ asset('images/welcome.jpg') }}" alt="welcome page">
+        </div>
+        <div class="text">
+            <h1 class="wel">Welcome to Your Personal Blog</h1>
+            <div class="mt-5">
+                <a href="/sign-up" class="btn btn-success me-5 hover-shadow">Register</a>
+                <a href="/sign-in" class="btn btn-dark hover-shadow">Log In</a>
+            </div>
 
         </div>
-
+    
+    </div>
     @endauth
 
 

@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Cookie&display=swap");
 
-
 /* @extend display-flex; */
 display-flex,
 .display-flex,
@@ -379,7 +378,7 @@ body {
 }
 
 .signup {
-    margin-bottom: 50px;
+    margin-bottom: 10px;
 }
 
 .signup-content {
@@ -689,6 +688,10 @@ label.valid:after {
     background: #e72734;
 }
 
+.sign-in {
+    margin-top: -5px;
+}
+
 .signin-form {
     margin-right: 90px;
     margin-left: 80px;
@@ -796,23 +799,4 @@ label.valid:after {
 
 /*# sourceMappingURL=style.css.map */
 
-.welcome {
-    font-family: 'Cookie', sans-serif;
-    font-weight: 500;
-    font-size: 10vh;
-    text-align: center;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
-}
 
-.post-btn {
-    margin-left: 15vw;
-}
-
-.caption {
-    font-weight: 600;
-}
-
-.content {
-    color: black;
-}

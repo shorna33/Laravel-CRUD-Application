@@ -2,6 +2,7 @@
 
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
@@ -20,17 +21,22 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     $contents = [];
     $person = [];
+    $user = Auth::user();
     if (auth()->check()){
         $contents = auth()->user()->usersPosts()->latest()->get();  //shows only the logged in user's post sorted by newest post
         $person = auth()->user()->get();
     }
     // $contents = Post::where('user_id', auth()->id())->get();  //shows only the logged in user's post
     // $contents = Post::all(); //shows all posts
-    return view('home', ['posts' => $contents], ['users' => $person]);
+    return view('home', ['posts' => $contents], ['users' => $person], ['currentUser' => $user]);
 });
 
-Route::get('/welcome', function () {
-    return view('welcome');
+Route::get('/sign-up', function () {
+    return view('sign-up');
+});
+
+Route::get('/sign-in', function () {
+    return view('sign-in');
 });
 
 Route::post('/register', [UserController::class, 'register']);
