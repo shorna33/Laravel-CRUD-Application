@@ -15,6 +15,15 @@
 </head>
 <body>
     <div class="main">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
         <!-- Log in  Form -->
         <section class="sign-in">
@@ -31,12 +40,29 @@
                             @csrf
                             <div class="form-group">
                                 <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="your_name" id="your_name" placeholder="Your Name"/>
+                                <input type="text" name="your_name" id="your_name" class="@error('your_name') is-invalid @enderror" placeholder="Name"/>
                             </div>
+                            @error('your_name')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                            {{-- @if ($errors->has('your_name'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('your_name') }}</strong>
+                                </span>
+                            @endif --}}
                             <div class="form-group">
                                 <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="your_pass" id="your_pass" placeholder="Password"/>
+                                <input type="password" name="your_pass" id="your_pass" class="@error('your_pass') is-invalid @enderror" placeholder="Password"/>
                             </div>
+                            @error('your_pass')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                            {{-- @if ($errors->has('your_pass'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('your_pass') }}</strong>
+                                </span>
+                            @endif --}}
+
                             {{-- <div class="form-group">
                                 <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
                                 <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
