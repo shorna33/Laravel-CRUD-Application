@@ -14,17 +14,10 @@
     {{-- bootstrap --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <!-- MDB -->
-    <!-- Font Awesome -->
-    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
-    <!-- MDB -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.css" rel="stylesheet"/> --}}
     {{-- fonts --}}
     <link href="{{ asset('fonts/material-icon/css/material-design-iconic-font.min.css') }}" rel="stylesheet">
+    
     {{-- css --}}
-    {{-- <link href="{{ asset('css/style.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('css/welcome.css') }}" rel="stylesheet">
 
 </head>
@@ -32,6 +25,14 @@
 
     @auth
     <div class="colour">
+        <div class="position-fixed">
+            <form action="/logout" method="POST">
+                @csrf
+                <div class="d-flex justify-content-end me-5 pe-5 mb-5">
+                    <button class="btn btn-dark">Log Out</button>
+                </div>
+             </form>
+        </div>
         
      <h1 class="well">Welcome {{ Auth::user()->name }}!</h1>
 
@@ -55,25 +56,12 @@
                     <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Close</button>
                     <button class="btn btn-primary">Save Post</button>
                 </div>
-                
-                {{-- <div class="form-group">
-                    
-                    
-                </div> --}}
               </form>
             </div>
             
             </div>
         </div>
     </div>
-
-    {{-- <div class="container mt-5">
-        @foreach ($users as $user)
-            @if ($user['id'] == $post['user_id'])
-                <p>{{ $user['name'] }}</p>
-            @endif
-        @endforeach
-    </div> --}}
 
     <div class="m-5">
         <h2>All Posts</h2>
@@ -87,8 +75,8 @@
                         
                     @endif
                 @endforeach
-                <hr style="width: 90%; margin-left: 5vh;">
-                <p class="ms-5 content text-justify text-wrap" style="width: 88%; text-align: justify;">{{ $post['body'] }}</p>
+                <hr class="mx-5">
+                <p class="mx-5 content text-justify text-wrap" style="text-align: justify;">{{ $post['body'] }}</p>
 
                 <div class="ms-5 btn-toolbar pb-3">
                     <p><a href="/edit-post/{{ $post->id }}" class="btn btn-success me-3 mt-3">Edit</a></p>
@@ -105,12 +93,8 @@
     </div>
 
 
-     <form action="/logout" method="POST">
-        @csrf
-        <div class="d-flex justify-content-end me-5 pe-5 mb-5">
-            <button class="btn btn-dark">Log Out</button>
-        </div>
-     </form>
+    
+    
     @else 
         <div class="image">
             <img src="{{ asset('images/welcome.jpg') }}" alt="welcome page">
@@ -127,13 +111,6 @@
     </div>
     @endauth
 
-
-    
-
-      <!-- MDB -->
-    {{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.js"></script>
-    <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/main.js') }}"></script> --}}
 
     {{-- bootstrap --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

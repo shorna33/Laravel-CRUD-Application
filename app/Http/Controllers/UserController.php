@@ -22,21 +22,8 @@ class UserController extends Controller
             return redirect('/');
         }
         else {
-            return back()->withErrors([
-                $message = ['The provided password does not match our records.']
-            ]);
-            // return redirect('/sign-in');
+            return redirect('/sign-in')->with('message', 'Invalid name or password');
         }
-
-        // $credentials = [
-        //     'your_name' => $request->name,
-        //     'your_pass' => $request->password
-        // ];
-
-        // if (Auth::attempt($credentials)) {
-        //     return redirect('/')->with('success');
-        // }
-        // return back()->with('error', 'Incorrect Name or Password');
         
     }
 

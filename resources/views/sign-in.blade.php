@@ -15,7 +15,7 @@
 </head>
 <body>
     <div class="main">
-        @if ($errors->any())
+        {{-- @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
                     @foreach ($errors->all() as $error)
@@ -23,7 +23,7 @@
                     @endforeach
                 </ul>
             </div>
-        @endif
+        @endif --}}
 
         <!-- Log in  Form -->
         <section class="sign-in">
@@ -35,38 +35,33 @@
                     </div>
 
                     <div class="signin-form">
-                        <h2 class="form-title">Log In</h2>
+                        <h2 class="form-title">Log In</h2>                        
+
+                        @if(session('message'))
+                            <div class="alert alert-danger alert-dismissible my-4 fade show">
+                                {{ session('message') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+                        
                         <form action="/login" method="POST" class="register-form" id="login-form">
                             @csrf
                             <div class="form-group">
                                 <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="your_name" id="your_name" class="@error('your_name') is-invalid @enderror" placeholder="Name"/>
+                                <input type="text" name="your_name" id="your_name" placeholder="Name"/>
                             </div>
                             @error('your_name')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                                <p class="text-danger">{{ $message }}</p>
                             @enderror
-                            {{-- @if ($errors->has('your_name'))
-                                <span class="invalid-feedback">
-                                    <strong>{{ $errors->first('your_name') }}</strong>
-                                </span>
-                            @endif --}}
+                            
                             <div class="form-group">
                                 <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="your_pass" id="your_pass" class="@error('your_pass') is-invalid @enderror" placeholder="Password"/>
+                                <input type="password" name="your_pass" id="your_pass" placeholder="Password"/>
                             </div>
                             @error('your_pass')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                                <p class="text-danger">{{ $message }}</p>
                             @enderror
-                            {{-- @if ($errors->has('your_pass'))
-                                <span class="invalid-feedback">
-                                    <strong>{{ $errors->first('your_pass') }}</strong>
-                                </span>
-                            @endif --}}
 
-                            {{-- <div class="form-group">
-                                <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
-                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
-                            </div> --}}
                             <div class="form-group form-button">
                                 <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
                             </div>
